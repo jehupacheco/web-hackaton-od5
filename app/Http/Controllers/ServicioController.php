@@ -12,15 +12,21 @@ class ServicioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $todosLosServicios = Servicio::all();
         foreach($todosLosServicios as $servicio){
-            $servicio['nivel'] = $servicio->promedioResena();
+            $servicio->nivel = $servicio->promedioResena();
             $servicio->save();
         }
 
-        $servicios = Servicio::simplePaginate(15);
+        $query = $request->query('busqueda');
+
+        if (is_null($query)){
+            $servicios = Servicio::orderBy('nivel')->simplePaginate(5);
+        } else{
+            $servicios = Servicio::where('titulo','like', '%' . $query . '%')->simplePaginate(5);
+        }
 
         return view('servicio.index', compact('servicios'));
     }

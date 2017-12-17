@@ -20,7 +20,7 @@
   <p>
     <h5 class="bold purple-text">{{$organizacion->titulo}}</h5>
   </p>
-  <img src="{{asset('img/sample-1.jpg')}}" alt="" class="responsive-img">
+  <img src="{{asset($organizacion->banner)}}" alt="" class="responsive-img">
   <p>
     <div class="line">
       <span>{{$organizacion->nivel}}</span>
@@ -84,9 +84,10 @@
   @endforeach
   <h6 class="bold purple-text">Déjanos tu opinión:</h6>
   <p>
-    <form action="">
+    <form method="POST" action="/resenas">
+            {{ csrf_field() }}   
       <div class="input-field">
-        <input type="text" id="nivel" name="nivel" placeholder="Puntaje" max="5" min="0" required>
+        <input type="number" id="nivel" name="nivel" placeholder="Puntaje" max="5" min="0" required>
       </div>
       <div class="input-field">
         <select name="servicio" required>

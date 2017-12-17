@@ -25,7 +25,8 @@ class CreateOrganizacionsTable extends Migration
             $table->time('comienzoAtencion')->nullable();
             $table->time('finAtencion')->nullable();
             $table->string('paginaWeb',250)->nullable();
-            $table->integer('nivel');
+            $table->float('nivel');
+            $table->string('banner', 250)->nullable();
             $table->timestamps();
         });
     }

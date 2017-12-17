@@ -17,15 +17,22 @@
 @section('title', 'Organizaciones')
 
 @section('container')
-    <div class="row">
-        <div class="col s12">
-            <div class="input-field">
-                <i class="material-icons prefix">search</i>
-                <input type="text" id="search">
-                <label for="icon-prefix">Buscar ...</label>
+    <form method="GET" action="/organizaciones">
+            {{ csrf_field() }}   
+        <div class="row">
+            <div class="col s12">
+                <div class="input-field">
+                    <label for="icon-prefix"><i class="material-icons prefix">search</i></label>
+                    <input type="text" id="search" name="busqueda" value="{{app('request')->input('busqueda')}}">
+                </div>
+            </div>
+            <div class="col s12 center-align">
+                <button class="waves-effect waves-light btn purple" type="submit">
+                    Buscar
+                </button>
             </div>
         </div>
-    </div>
+    </form>
 
     <ul class="tabs">
         <li class="tab col s4">

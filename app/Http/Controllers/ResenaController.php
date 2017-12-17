@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Resena;
+use App\Servicio;
+use App\Organizacion;
 use Illuminate\Http\Request;
 
 class ResenaController extends Controller
@@ -35,7 +37,29 @@ class ResenaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(request(),[
+            'nivel' => 'required',
+            'servicio' => 'required',
+            'descripcion' => 'required',
+        ]);
+
+        $resena = new Resena;
+        $resena->nivel = $request->nivel;
+        $resena->descripcion = $request->descripcion;
+        $resena->idServicio = $request->servicio;
+        $resena->titulo = 'Titulo';
+
+        $resena->save();
+
+        $servicio = Servicio::find($resena->idServicio);
+        $servicio->nivel = $servicio->promedioResenas();
+        $servicio->save();
+
+        $organizacion = $servicio->organizacion()->get()->first();
+        $organizacion->nivel = $organizacion->promedioResenas();
+        $organizacion->save();
+
+        return redirect()->action('ServicioController@show',['id'=>$resena->idServicio]);
     }
 
     /**
@@ -46,7 +70,6 @@ class ResenaController extends Controller
      */
     public function show(Resena $resena)
     {
-        //
     }
 
     /**

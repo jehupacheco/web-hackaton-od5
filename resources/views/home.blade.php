@@ -9,7 +9,7 @@
   <div class="container">
     <h5 class="purple-text bold">Quiénes somos</h5>
     <p class="justify-align">
-      Minim minim et aliqua non amet. Minim nisi laboris aute nisi et veniam sit reprehenderit tempor. Ullamco esse Lorem sit ullamco Lorem ipsum duis occaecat. Culpa aliquip eiusmod commodo irure nisi.
+      Somos una plataforma, la cual permite que una mujer que sufre de violencia, pueda buscar y acceder de manera rápida y sencilla a las organizaciones que brindan servicios en violencia de género, por medio de su testimonio.
     </p>
     <h5 class="purple-text bold">Nuestro objetivo</h5>
     <p class="justify-align">

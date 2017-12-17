@@ -12,14 +12,21 @@ class OrganizacionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $todasLasOrganizaciones = Organizacion::all();
         foreach($todasLasOrganizaciones as $organizacion){
-            $organizacion['nivel'] = $organizacion->promedioResena();
+            $organizacion->nivel = $organizacion->promedioResena();
             $organizacion->save();
         }
-        $organizaciones = Organizacion::simplePaginate(5);
+
+        $query = $request->query('busqueda');
+
+        if (is_null($query)){
+            $organizaciones = Organizacion::orderBy('nivel')->simplePaginate(5);
+        } else{
+            $organizaciones = Organizacion::where('titulo','like', '%' . $query . '%')->simplePaginate(5);
+        }
 
         return view('organizacion.index', compact('organizaciones'));
     }

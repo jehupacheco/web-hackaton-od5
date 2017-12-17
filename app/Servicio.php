@@ -6,21 +6,31 @@ use Illuminate\Database\Eloquent\Model;
 
 class Servicio extends Model
 {
-    public function promedioResena(){
-        $resenas = Resena::where('idServicio', $this->attributes['id'])->get();
+    public function promedioResena() {
+        $resenas = $this->resenas()->get();
 
-        $suma = 0;
-        foreach($resenas as $resena){
-            $suma += $resena->attributes['nivel'];
+        if ($resenas->count() == 0) {
+            return 5;
         }
 
-        if ($suma != 0){
-            return $suma/count($resenas);
+        $sum = 0;
+
+        foreach ($resenas as $resena) {
+            $sum += $resena->nivel;
         }
 
+        return round($sum / $resenas->count(), 2);
     }
 
     public function resenas() {
         return $this->hasMany('App\Resena', 'idServicio');
+    }
+
+    public function organizacion() {
+        return $this->belongsTo('App\Organizacion', 'idOrganizacion');
+    }
+
+    public function tipoAtencion() {
+        return $this->belongsToMany('App\TipoAtencion', 'servicio_tipo', 'idServicio', 'idTipo');
     }
 }

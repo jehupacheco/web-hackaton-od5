@@ -21,7 +21,7 @@ class CreateServiciosTable extends Migration
             $table->text('descripcion')->nullable();;
             $table->time('comienzoAtencion')->nullable();;
             $table->time('finAtencion')->nullable();;
-            $table->integer('nivel')->nullable();;
+            $table->float('nivel')->nullable();;
             $table->integer('idOrganizacion')->unsigned();
             $table->timestamps();
             $table->foreign('idOrganizacion')->references('id')->on('organizacions');

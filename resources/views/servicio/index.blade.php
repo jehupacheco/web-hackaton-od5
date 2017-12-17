@@ -74,8 +74,8 @@
                             <li class="service-data-line">
                                 <i class="material-icons purple-text">rate_review</i>
                                 <span class="data-value">
-                                    {{$servicio->promedioResena()}}
-                                    <span class="rateYo-rating" data-rating="{{$servicio->promedioResena()}}" data-rateyo-read-only="true"></span>
+                                    {{$servicio->nivel}}
+                                    <span class="rateYo-rating" data-rating="{{$servicio->nivel}}" data-rateyo-read-only="true"></span>
                                 </span>
                             </li>
                         </ul>

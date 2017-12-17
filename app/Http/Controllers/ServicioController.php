@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Servicio;
+use DB;
 use Illuminate\Http\Request;
 
 class ServicioController extends Controller
@@ -20,12 +21,21 @@ class ServicioController extends Controller
             $servicio->save();
         }
 
-        $query = $request->query('busqueda');
+        $busqueda = $request->query('busqueda');
 
-        if (is_null($query)){
-            $servicios = Servicio::orderBy('nivel')->simplePaginate(5);
+        if (is_null($busqueda)){
+            $tipo = $request->query('tipo');
+            if (is_null($tipo)){
+                $servicios = Servicio::orderBy('nivel')->simplePaginate(5);
+            } else{
+                if ($tipo == 'psico') $tipoId=1;
+                else if ($tipo == 'legal') $tipoId=2;
+
+                $servicios = DB::table('servicios')->join('servicio_tipo','servicios.id','=','servicio_tipo.idServicio')
+                                                    ->where('servicio_tipo.idTipo','=',$tipoId)->get();
+            }
         } else{
-            $servicios = Servicio::where('titulo','like', '%' . $query . '%')->simplePaginate(5);
+                $servicios = Servicio::where('titulo','like', '%' . $busqueda . '%')->simplePaginate(5);
         }
 
         return view('servicio.index', compact('servicios'));
